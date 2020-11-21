@@ -63,7 +63,7 @@
   }
 </style>
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-dark bg-primary mb-4">
   <a class="navbar-brand" href="#">
     <img
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
@@ -75,57 +75,85 @@
     />
     GeoFlo
   </a>
-  <p *ngIf="result" class="result">{{ result.address.LongLabel }}</p>
+  <!-- <p *ngIf="result" class="result">{{ result.address.LongLabel }}</p> -->
+  <button mat-raised-button color="accent" (click)="formatCoordonates()">
+    Convert
+  </button>
 </nav>
 
-<div class="container">
+<div class="container-fluid h-100">
+  <!-- <mat-card>
+    <div class="row">
+      <div class="col-sm">
+        <mat-form-field class="example-form-field">
+          <mat-label>Latitude</mat-label>
+          <input matInput type="text" [(ngModel)]="latitude" />
+          <button
+            mat-button
+            *ngIf="latitude"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="latitude = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field class="example-form-field">
+          <mat-label>Longitude</mat-label>
+          <input matInput type="text" [(ngModel)]="longitude" />
+          <button
+            mat-button
+            *ngIf="longitude"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="longitude = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <button mat-raised-button color="accent" (click)="findLocation()">
+          Find Location
+        </button>
+      </div>
+    </div>
+  </mat-card> -->
   <div class="row mt-4">
     <div class="col-sm">
-      <mat-form-field class="example-form-field">
-        <mat-label>Latitude</mat-label>
-        <input matInput type="text" [(ngModel)]="latitude" />
-        <button
-          mat-button
-          *ngIf="latitude"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="latitude = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+      <mat-card>
+        <mat-form-field class="w-100">
+          <textarea
+            matInput
+            [(ngModel)]="bulkList"
+            placeholder="Add bulk coordinates"
+            rows="20"
+          ></textarea>
+        </mat-form-field>
+      </mat-card>
+      <!-- <button mat-raised-button color="accent" (click)="formatCoordonates()">
+        Format
+      </button> -->
     </div>
     <div class="col-sm">
-      <mat-form-field class="example-form-field">
-        <mat-label>Longitude</mat-label>
-        <input matInput type="text" [(ngModel)]="longitude" />
-        <button
-          mat-button
-          *ngIf="longitude"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="longitude = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+      <mat-card class="h-100">
+        <p *ngFor="let coordinates of formattedList">
+          {{ coordinates.latitude }} {{ coordinates.longitude }}
+        </p>
+      </mat-card>
+      <!-- <button mat-raised-button color="accent" (click)="convertToAddress()">
+        Format
+      </button> -->
     </div>
     <div class="col-sm">
-      <button mat-raised-button color="accent" (click)="findLocation()">
-        Find Location
-      </button>
+      <mat-card class="h-100">
+        <p *ngFor="let item of addresses">{{ item }}</p></mat-card
+      >
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm">
-      <mat-card> </mat-card>
-    </div>
-    <div class="col-sm"><mat-card> </mat-card></div>
-    <div class="col-sm"><mat-card> </mat-card></div>
-    <div class="col-sm"><mat-card> </mat-card></div>
   </div>
 </div>
 
