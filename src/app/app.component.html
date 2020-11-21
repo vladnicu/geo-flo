@@ -76,8 +76,20 @@
     GeoFlo
   </a>
   <!-- <p *ngIf="result" class="result">{{ result.address.LongLabel }}</p> -->
-  <button mat-raised-button color="accent" (click)="formatCoordonates()">
-    Convert
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="formatCoordonates()"
+    [disabled]="isLoading"
+  >
+    <!-- <mat-progress-spinner
+      *ngIf="isLoading"
+      color="primary"
+      mode="indeterminate"
+      [diameter]="20"
+    >
+    </mat-progress-spinner> -->
+    <span>Convert</span>
   </button>
 </nav>
 
@@ -126,11 +138,14 @@
   <div class="row mt-4">
     <div class="col-sm">
       <mat-card>
+        <mat-card-header>
+          <mat-card-title>Add bulk coordinates</mat-card-title>
+        </mat-card-header>
         <mat-form-field class="w-100">
           <textarea
             matInput
             [(ngModel)]="bulkList"
-            placeholder="Add bulk coordinates"
+            placeholder="Copy here"
             rows="20"
           ></textarea>
         </mat-form-field>
@@ -141,6 +156,9 @@
     </div>
     <div class="col-sm">
       <mat-card class="h-100">
+        <mat-card-header>
+          <mat-card-title>Formatted coordinates</mat-card-title>
+        </mat-card-header>
         <p *ngFor="let coordinates of formattedList">
           {{ coordinates.latitude }} {{ coordinates.longitude }}
         </p>
@@ -151,6 +169,17 @@
     </div>
     <div class="col-sm">
       <mat-card class="h-100">
+        <mat-card-header>
+          <mat-card-title>Converted addresses</mat-card-title>
+        </mat-card-header>
+        <div class="align-center">
+          <mat-progress-spinner
+            *ngIf="isLoading"
+            color="primary"
+            mode="indeterminate"
+          >
+          </mat-progress-spinner>
+        </div>
         <p *ngFor="let item of addresses">{{ item }}</p></mat-card
       >
     </div>

@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
 
   result;
 
+  isLoading = false;
+
   constructor(private geoLocationService: GeoLocationService) {}
 
   ngOnInit(): void {}
@@ -48,12 +50,16 @@ export class AppComponent implements OnInit {
   }
 
   convertToAddress(): void {
+    this.isLoading = true;
     this.formattedList.forEach((element) => {
       this.geoLocationService
         .findAdress(element.latitude, element.longitude)
         .subscribe(
           (res) => {
             this.addresses.push(res.address.Match_addr);
+            if(this.formattedList.indexOf(element) ===  this.formattedList.length - 1) {
+              this.isLoading = false;
+            }
           },
           (err) => alert(err)
         );
